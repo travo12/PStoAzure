@@ -5,6 +5,7 @@ Echo ""
 Echo "This Process may take several hours to complete"
 Echo ""
 Echo "Please Run sysprep on the VM before using this program."
+Echo ""
 
 
 $vhd = Read-Host "Where is the VHD located?"
@@ -129,9 +130,9 @@ ELSE
 $AzureContainerName = (Get-AzureStorageContainer)[$SubNumber-1].Name
 }
 
-Echo "success"
+Echo ""
 $VHDuploadname = Read-Host "Enter the Name to call the VHD in Azure"
-Echo "Uploading VHD to Azure, this may take a while"
+Echo "Uploading VHD to Azure, this may take a while...."
 
 #Sets the URL
 $AzureDestination = "https://"+$AzureSAName+".blob.core.windows.net/"+$AzureContainerName+"/"+$VHDuploadname+".vhd"
@@ -144,7 +145,8 @@ $IMGname = $VHDuploadname
 #Allows the .vhd file to be copied into a base image
 Add-AzureVMImage -ImageName $IMGname -Medialocation $AzureDestination -OS "Windows"
 
-
+Echo "The VHD has been uploaded and set as an Azure VM Image, now we need some information"
+Echo ""
 
 $VMname = Read-Host "Please Enter the Name of the VM"
 $InstanceSize = Read-Host "Please enter the size of the VM (Basic_A0-Basic-A4, A5-A11, ect..)"
